@@ -1,4 +1,6 @@
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+import GitHubProvider from "next-auth/providers/github";
 
 export const NEXT_AUTH= {
     providers: [
@@ -18,7 +20,15 @@ export const NEXT_AUTH= {
                     email: "mohit123@gmail.com"
                 };
             },
-        })
+        }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID || "",
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+          }),
+          GitHubProvider({
+            clientId: process.env.GITHUB_ID || "",
+            clientSecret: process.env.GITHUB_SECRET || "",
+          })
     ],
     secret:process.env.NEXTAUTH_SECRET,
     callbacks:{
@@ -29,6 +39,11 @@ export const NEXT_AUTH= {
             }
             return session;
         }
-    }
+    },
+    //  this wil allow you create a separate page for sign in
+
+    // pages:{
+    //     signIn: "/signin"
+    // }
 
 }
